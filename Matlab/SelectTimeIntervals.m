@@ -6,7 +6,7 @@ minTime = 2;
 maxTime = 5 * 60;
 
 % Rate parameter for the exponential distribution
-lambda = 1 / 25;
+lambda = 1 / 30;
 
 % Preallocate the browsing times array
 maxWebsites = ceil(totalTime / minTime);
@@ -25,13 +25,13 @@ end
 browsingTimes(i:end) = [];
 
 % Calculate the total number of counts and the total time spent
-totalCounts = length(browsingTimes) - 1;
+totalCounts = length(browsingTimes);
 totalTimeSpent = sum(browsingTimes) - browsingTimes(end);
 
 % Draw a histogram of the browsing times with 30 bins
 figure;
 subplot(2, 1, 1);
-histogram(browsingTimes, 'Normalization', 'pdf');
+histogram(browsingTimes, 30, 'Normalization', 'pdf');
 xlabel('Time (s)');
 ylabel('Frequency');
 
