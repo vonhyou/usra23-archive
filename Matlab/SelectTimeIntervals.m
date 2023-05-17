@@ -9,7 +9,7 @@ maxTime = 5 * 60;
 lambda = 1 / 25;
 
 % Preallocate the browsing times array
-maxWebsites = ceil(totalTime / minTime);
+maxWebsites = floor(totalTime / minTime);
 browsingTimes = zeros(1, maxWebsites);
 
 % Generate the browsing times
@@ -23,6 +23,14 @@ end
 
 % Remove unused elements
 browsingTimes(i:end) = [];
+
+% Calculate the total number of counts and the total time spent
+totalCounts = length(browsingTimes);
+totalTimeSpent = sum(browsingTimes);
+
+% Display the total number of counts and the total time spent
+fprintf('Total number of websites visited: %d\n', totalCounts);
+fprintf('Total time spent: %d seconds\n', totalTimeSpent);
 
 % Draw a histogram of the browsing times with 30 bins
 figure;
