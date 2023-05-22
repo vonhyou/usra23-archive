@@ -1,8 +1,14 @@
-# Ask the user for the total duration for the script to run (in minutes)
-$scriptDurationInMinutes = Read-Host -Prompt 'Enter the duration for the script to run (in minutes)'
+# Get the total duration for the script to run (in minutes) from the command-line argument
+$scriptDurationInMinutes = $args[0]
+
+# If the duration is not provided, exit the script
+if ($null -eq $scriptDurationInMinutes) {
+  Write-Host "Please provide the duration for the script to run (in minutes) as a command-line argument."
+  exit
+}
 
 # Confirm the user input
-$confirmation = Read-Host -Prompt "You have entered $scriptDurationInMinutes minutes. Is this correct? (y/N)"
+$confirmation = Read-Host -Prompt "The script will run for about $scriptDurationInMinutes minutes. Is this correct? (y/N)"
 
 # Convert the confirmation to lowercase
 $confirmation = $confirmation.ToLower()
