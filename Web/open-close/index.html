@@ -32,36 +32,7 @@
     <button onclick="startURLs()">Start URLs</button>
   </div>
 
-  <script>
-    var urls = [];
-    var interval = 0;
-
-    function countURLs() {
-      var urlInput = document.getElementById('urlInput').value;
-      urls = urlInput.split('\n');
-      document.getElementById('urlCount').innerText = 'URL count: ' + urls.length;
-    }
-
-    function generateInterval() {
-      interval = Math.floor(Math.random() * 10) + 1; // Generate a random interval between 1 and 10 seconds
-      document.getElementById('interval').innerText = 'Interval: ' + interval + ' seconds';
-    }
-
-    function startURLs() {
-      let i = 0;
-      function openNextURL() {
-        if (i < urls.length) {
-          var closeWindow = window.open(urls[i]);
-          setTimeout(function () {
-            closeWindow.close();
-            i++;
-            openNextURL();
-          }, interval * 1000);
-        }
-      }
-      openNextURL();
-    }
-  </script>
+  <script src="./scripts/main.js"></script>
 </body>
 
 </html>
