@@ -67,8 +67,8 @@
 
     // Function to generate random interval
     function generateInterval() {
-      interval = Math.floor(Math.random() * 10) + 1; // Random interval between 1 and 10 seconds
-      document.getElementById('interval').innerText = 'Interval: ' + interval + ' seconds';
+      intervals = getBrowseringTimes()
+      document.getElementById('interval').innerText = intervals.length + ' intervals'
     }
 
     // Function to open URLs
@@ -88,12 +88,62 @@
             closeWindow.close();
             i++;
             openNextURL();
-          }, interval * 1000);
+          }, intervals[i] * 1000);
         }
       }
       openNextURL();
     }
 
+    function getBrowseringTimes() {
+
+      // Total browsing time in seconds
+      let totalTime = 60 * 60;
+
+      // Minimum and maximum browsing time per website in seconds
+      let minTime = 2;
+      let maxTime = 5 * 60;
+
+      // Rate parameter for the exponential distribution
+      let lambda = 1 / 30;
+
+      // Preallocate the browsing times array
+      let maxWebsites = Math.ceil(totalTime / minTime);
+      let browsingTimes = new Array(maxWebsites).fill(0);
+
+      // Generate the browsing times
+      let i = 0;
+      while (totalTime > minTime) {
+        let x = Math.round(truncatedExponentialRandom(lambda, minTime, maxTime));
+        totalTime -= x;
+        browsingTimes[i] = x;
+        i++;
+      }
+
+      // Remove unused elements
+      browsingTimes = browsingTimes.slice(0, i);
+
+      // Calculate the total number of counts and the total time spent
+      let totalCounts = browsingTimes.length;
+      let totalTimeSpent = browsingTimes.reduce((a, b) => a + b, 0) - browsingTimes[browsingTimes.length - 1];
+
+      console.log(totalCounts, totalTimeSpent)
+      console.log(browsingTimes)
+
+      return browsingTimes
+    }
+
+
+    function truncatedExponentialRandom(lambda, min, max) {
+      let x = exponentialRandom(lambda);
+      while (x < min || x > max) {
+        x = exponentialRandom(lambda);
+      }
+      return x;
+    }
+
+    function exponentialRandom(lambda) {
+      return -Math.log(1.0 - Math.random()) / lambda;
+    }
   </script>
 </body>
 
