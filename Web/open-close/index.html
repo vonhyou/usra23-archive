@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browsering Test</title>
+</head>
+
+<body>
+  <h1>Open/close URLs</h1>
+
+  <div>
+    <h2>Get URLs section</h2>
+    <textarea id="urlInput" rows="5" cols="50"></textarea>
+    <br>
+    <input type="file" id="fileInput" accept=".txt">
+    <br>
+    <button onclick="countURLs()">Count URLs</button>
+    <p id="urlCount"></p>
+  </div>
+
+  <div>
+    <h2>Get Interval section</h2>
+    <button onclick="generateInterval()">Generate Interval</button>
+    <p id="interval"></p>
+  </div>
+
+  <div>
+    <h2>Start section</h2>
+    <button onclick="startURLs()">Start URLs</button>
+  </div>
+
+  <script>
+    var urls = [];
+    var interval = 0;
+
+    function countURLs() {
+      var urlInput = document.getElementById('urlInput').value;
+      urls = urlInput.split('\n');
+      document.getElementById('urlCount').innerText = 'URL count: ' + urls.length;
+    }
+
+    function generateInterval() {
+      interval = Math.floor(Math.random() * 10) + 1; // Generate a random interval between 1 and 10 seconds
+      document.getElementById('interval').innerText = 'Interval: ' + interval + ' seconds';
+    }
+
+    function startURLs() {
+      let i = 0;
+      function openNextURL() {
+        if (i < urls.length) {
+          var closeWindow = window.open(urls[i]);
+          setTimeout(function () {
+            closeWindow.close();
+            i++;
+            openNextURL();
+          }, interval * 1000);
+        }
+      }
+      openNextURL();
+    }
+  </script>
+</body>
+
+</html>
