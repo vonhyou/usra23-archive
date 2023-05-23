@@ -13,7 +13,7 @@
 
   <div>
     <h2>Get URLs section</h2>
-    <textarea id="urlInput" rows="5" cols="50"></textarea>
+    <textarea id="urlInput" rows="5" cols="40"></textarea>
     <br>
     <input type="file" id="fileInput" accept=".txt">
     <br>
@@ -84,7 +84,7 @@
           // Open the URL in a new tab
           var closeWindow = window.open("https://" + urls[i]);
           setTimeout(function () {
-            // Close the tab after the specified interval
+            // ISSUE: cannot be closed if the url changes
             closeWindow.close();
             i++;
             openNextURL();
