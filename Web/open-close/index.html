@@ -82,7 +82,7 @@
       function openNextURL() {
         if (i < urls.length) {
           // Open the URL in a new tab
-          var closeWindow = window.open("https://" + urls[i]);
+          var closeWindow = window.open(urls[i]);
           setTimeout(function () {
             // ISSUE: cannot be closed if the url changes
             closeWindow.close();
