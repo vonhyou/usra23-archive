@@ -19,7 +19,7 @@ if ($confirmation -eq 'y') {
   $endTime = (Get-Date).AddMinutes($scriptDurationInMinutes)
 
   while ((Get-Date) -lt $endTime) {
-    # Generate a random delay between 0.5 and 3 minutes
+    # Generate a random delay between 0.1 and 2 minutes
     $randomDelayInMinutes = Get-Random -Minimum 0.1 -Maximum 2
 
     # Execute the adb command and check for errors
