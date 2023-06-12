@@ -1,5 +1,6 @@
 # Get the total duration for the script to run (in minutes) from the command-line argument
 $scriptDurationInMinutes = $args[0]
+$timeIntervalInSeconds = $args[1]
 
 # If the duration is not provided, exit the script
 if ($null -eq $scriptDurationInMinutes) {
@@ -19,9 +20,6 @@ if ($confirmation -eq 'y') {
   $endTime = (Get-Date).AddMinutes($scriptDurationInMinutes)
 
   while ((Get-Date) -lt $endTime) {
-    # Generate a random delay between 0.1 and 2 minutes
-    $randomDelayInMinutes = Get-Random -Minimum 0.1 -Maximum 2
-
     # Execute the adb command and check for errors
     try {
       adb shell input swipe 700 2300 700 1000
@@ -32,11 +30,9 @@ if ($confirmation -eq 'y') {
     }
 
     # Convert the random delay to milliseconds (1 minute = 60000 milliseconds)
-    $delayInMilliseconds = $randomDelayInMinutes * 60000
+    $delayInMilliseconds = $timeIntervalInSeconds * 1000
 
-    # Log the delay before the next adb command
-    $delayInSeconds = [math]::floor($randomDelayInMinutes * 60)
-    Write-Host "[Log] Next swipe: $delayInSeconds seconds."
+    Write-Host "[Log] Next swipe: $timeIntervalInSeconds seconds."
 
 
     # Wait for the specified delay before repeating the loop
