@@ -1,2 +1,7 @@
 /Chrome/csv2txt/*.csv
 /Drive/dummy/*.zip
+/.vscode
+
+/.metals
+/*/.scala-build
+/.scalafmt.conf
