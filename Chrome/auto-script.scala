@@ -1,20 +1,20 @@
 import scala.io.Source
-import scala.util.Try
+import scala.util.{Try, Using, Success, Failure}
 import java.net.URL
-import scala.util.Success
-import scala.util.Failure
 import sys.process._
 
 @main def main(urlsPath: String) =
-  Source.fromFile(urlsPath).getLines().foreach { url =>
-    Try(new URL(url)) match
-      case Success(value) => openClose(value)
-      case Failure(_)     => println(s"`$url` is not a valid URL")
+  Using.resource(Source.fromFile(urlsPath)) { source =>
+    source.getLines().foreach { line =>
+      Try(new URL(line)) match
+        case Success(value) => openClose(value)
+        case Failure(_)     => println(s"`$line` is not a valid URL")
+    }
   }
 
 def openClose(url: URL) =
   openURL(url)
-  Thread.sleep(10000)
+  Thread.sleep(2000)
   println(s"[] Open $url")
   closeURL()
 
@@ -33,6 +33,5 @@ def adbTapAt(x: Int, y: Int) =
   Thread.sleep(500)
 
 def adbInputText(text: String) =
-  println(text)
   s"""adb shell input text "$text"""".!
   Thread.sleep(500)
