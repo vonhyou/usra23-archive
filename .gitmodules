@@ -1,0 +1,3 @@
+[submodule "Chrome/chrome-autoscript"]
+	path = Chrome/chrome-autoscript
+	url = git@github.com:vonhyou/chrome-autoscript.git
