@@ -1,3 +1,6 @@
 [submodule "Chrome/chrome-autoscript"]
 	path = Chrome/chrome-autoscript
 	url = git@github.com:vonhyou/chrome-autoscript.git
+[submodule "Slack/slack-autoscript"]
+	path = Slack/slack-autoscript
+	url = git@github.com:vonhyou/slack-autoscript.git
